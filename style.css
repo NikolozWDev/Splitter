@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    touch-action: manipulation;
+    overflow-x: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(198, 228, 228)
+}
+.main-div {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.title-name {
+    color: rgba(61, 102, 102, 1);
+    font-weight: bold;
+    font-size: 21px;
+    letter-spacing: 5px;
+}
+.primary-div {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 25px;
+    box-shadow: 10px 10px 10px 10px rgba(79, 166, 175, 0.2007);
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-name {
+    color: rgba(94, 122, 125, 1);
+    font-size: 16px;
+    font-family: monospace;
+}
+.input1 {
+    border: none;
+    background-color: rgba(243, 249, 250, 1);
+    border-radius: 5px;
+    color: rgba(158, 187, 189, 1);
+    padding: 12px 14px 12px 14px;
+    width: 310px;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-align: right;
+    direction: rtl;
+}
+.img1 {
+    position: absolute;
+    z-index: 10;
+    width: 15px;
+    height: 15px;
+    object-fit: cover;
+    left: 12px;
+    bottom: 14px;
+}
+.for4 {
+    bottom: 18px;
+}
+.for1 {
+    width: 20px;
+    height: 20px;
+}
+.left-div1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 8px;
+    position: relative;
+}
+.primary-div-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 35px;
+}
+.checks-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 10px;
+    width: 310px;
+}
+.primary-div-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 55px 35px 55px 35px;
+    background-color: rgba(0, 71, 75, 1);
+    border-radius: 15px;
+    gap: 25px;
+    height: 80%;
+}
+.right-div1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 100px;
+}
+.right-div1-div1 {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.right-name1 {
+    color: white;
+    font-size: 15px;
+    font-family: monospace;
+}
+.right-name2 {
+    color: rgba(127, 157, 159, 1);
+    font-size: 14px;
+    font-family: monospace;
+}
+.number {
+    font-size: 38px;
+    color: rgba(38, 194, 174, 1);
+    font-weight: bold;
+}
+.button1 {
+    color: black;
+    background-color: rgba(38, 194, 174, 1);
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    margin-top: 60px;
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+}
+.buttons1 {
+    padding: 10px 0px 10px 0px;
+    width: 80px;
+    border-radius: 5px;
+    background-color: rgba(0, 71, 75, 1);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+}
+.buttons1.active {
+    background-color: rgba(38, 194, 174, 1);
+    color: black;
+}
+.for2 {
+    background-color: rgba(243, 249, 250, 1);
+    color: rgba(84, 120, 120, 1);
+    letter-spacing: 1px;
+    font-weight: 700;
+    cursor: default;
+}
+
+
+
+
+
+
+@media (max-width: 800px) {
+
+    .primary-div {
+        flex-direction: column;
+    }
+    .main-div {
+        gap: 20px;
+    }
+    .title-name {
+        padding: 20px 0px 0px 0px;
+    }
+
+}
+@media (max-width: 650px) {
+
+    .primary-div {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+    .primary-div-left {
+        gap: 20px;
+    }
+    .left-div1 {
+        gap: 4px;
+    }
+    .button1 {
+        margin-top: 10px;
+    }
+    .primary-div-right {
+        padding: 40px 25px 40px 25px;
+    }
+    .buttons1 {
+        width: 90px;
+    }
+    .checks-div {
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+@media (max-width: 480px) {
+    .buttons1 {
+        width: 140px;
+        font-size: 21px;
+    }
+    .number {
+        font-size: 30px;
+    }
+}
+@media (max-width: 350px) {
+    .buttons1 {
+        width: 100px;
+        font-size: 21px;
+    }
+    .left-div1 {
+        align-items: center;
+    }
+    .input1 {
+        width: 250px;
+    }
+    .primary-div-left {
+        align-items: center;
+    }
+}
