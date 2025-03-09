@@ -30,7 +30,7 @@ elements.addEventListener('click', () => {
     elements.classList.add('active');
     lastClicked = elements
     let selectr = select / 100;
-    console.log(selectr)
+    // console.log(selectr)
     reset.addEventListener('click', () => {
 
         let resetR = document.querySelector('#num');

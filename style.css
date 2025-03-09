@@ -108,7 +108,7 @@ html, body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    gap: 100px;
+    gap: 50px;
 }
 .right-div1-div1 {
     display: flex;
@@ -129,6 +129,10 @@ html, body {
     font-size: 38px;
     color: rgba(38, 194, 174, 1);
     font-weight: bold;
+    width: 180px;
+    text-align: end;
+    word-wrap: break-word;
+    white-space: normal;
 }
 .button1 {
     color: black;
