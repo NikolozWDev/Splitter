@@ -178,7 +178,7 @@ function totalResult() {
 
 
 
-// *** clicking rest button (reset)
+// *** clicking rest button (reset!)
 reset.addEventListener('click', () => {
 
     if(!(input1.value.trim() === '' || input2.value.trim() === '')) {
