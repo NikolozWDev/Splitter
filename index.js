@@ -35,6 +35,7 @@ function showRes() {
     } else {
         reset.classList.remove('buttonnone');
     }
+    totalResult();
 }
 input1.addEventListener('input', showRes);
 input2.addEventListener('input', showRes);
@@ -69,6 +70,7 @@ while(i2 < element.length) {
                 selectr = select / 100;
             
             showRes();
+            totalResult()
 
         
         })
@@ -96,88 +98,115 @@ customInput.addEventListener('input', () => {
         xb.innerHTML = ``;
     }
     showRes();
+    totalResult()
 } else {
     if(lastClicked) {
         selectr = 0;
     }
     showRes();
+    totalResult()
 };
 });
 
 
 
+// function to calculate and display the total result after input validation
+function totalResult() {
 
-// *** clicking rest button
+        // this code shows value if input is empty
+        if(input1.value.trim() === '' || input2.value.trim() === '') {
+
+            if (input1.value.trim() === '' || input1.value.trim() < 0) {
+                input1.classList.remove('input1jspro12');
+                input1.classList.add('input1jspro1');
+                document.querySelector('#span1js').innerHTML = `Can't be zero`;
+                document.querySelector('#span1js').classList.add('span1');
+            } else {
+                input1.classList.add('input1jspro12');
+                input1.classList.remove('input1jspro1')
+                document.querySelector('#span1js').innerHTML = ``;
+                document.querySelector('#span1js').classList.remove('span1');
+            }
+    
+            if (input2.value.trim() === '' || input2.value.trim() < 0) {
+                input2.classList.remove('input1jspro12');
+                input2.classList.add('input1jspro1');
+                document.querySelector('#span2js').innerHTML = `Can't be zero`;
+                document.querySelector('#span2js').classList.add('span1');
+            } else {
+                input2.classList.add('input1jspro12');
+                input2.classList.remove('input1jspro1');
+                document.querySelector('#span2js').innerHTML = ``;
+                document.querySelector('#span2js').classList.remove('span1');
+            }
+    
+            if (Number(input1.value.trim()) < 0 || Number(input2.value.trim()) < 0) {
+                alert('! not < 1 !');
+                input1.value = ``
+                input2.value = ``
+            }
+            
+            return;
+    
+        }
+        input1.classList.remove('input1jspro1');
+        input2.classList.remove('input1jspro1');
+        input1.classList.add('input1jspro12')
+        input2.classList.add('input1jspro12')
+        document.querySelector('#span1js').innerHTML = ``;
+        document.querySelector('#span1js').classList.remove('span1');
+        document.querySelector('#span2js').innerHTML = ``;
+        document.querySelector('#span2js').classList.remove('span1');
+        
+    
+    
+            
+        let resetR = document.querySelector('#num');
+        let resetR2 = document.querySelector('#num2')
+        let calc1 = (Number(input1.value) * selectr) / Number(input2.value);
+        let calc2 = (Number(input1.value) + calc1) / Number(input2.value);
+        if(isNaN(calc1) || isNaN(calc2)) {
+            alert('Something wrong')
+            calc1 = 0;
+            calc2 = 0;
+        };
+        resetR.innerHTML = `$${calc1.toFixed(2)}`;
+        resetR2.innerHTML = `$${calc2.toFixed(2)}`;
+
+}
+
+
+
+
+// *** clicking rest button (reset)
 reset.addEventListener('click', () => {
 
+    if(!(input1.value.trim() === '' || input2.value.trim() === '')) {
 
-    // this code shows value if input is empty
-    if(input1.value.trim() === '' || input2.value.trim() === '') {
-
-        if (input1.value.trim() === '' || input1.value.trim() < 0) {
-            input1.classList.remove('input1jspro12');
-            input1.classList.add('input1jspro1');
-            document.querySelector('#span1js').innerHTML = `Can't be zero`;
-            document.querySelector('#span1js').classList.add('span1');
-        } else {
-            input1.classList.add('input1jspro12');
-            input1.classList.remove('input1jspro1')
-            document.querySelector('#span1js').innerHTML = ``;
-            document.querySelector('#span1js').classList.remove('span1');
-        }
-
-        if (input2.value.trim() === '' || input2.value.trim() < 0) {
-            input2.classList.remove('input1jspro12');
-            input2.classList.add('input1jspro1');
-            document.querySelector('#span2js').innerHTML = `Can't be zero`;
-            document.querySelector('#span2js').classList.add('span1');
-        } else {
-            input2.classList.add('input1jspro12');
-            nput2.classList.remove('input1jspro1');
-            document.querySelector('#span2js').innerHTML = ``;
-            document.querySelector('#span2js').classList.remove('span1');
-        }
-
-        if (Number(input1.value.trim()) < 0 || Number(input2.value.trim()) < 0) {
-            alert('! not < 1 !');
-            input1.value.trim() = ``
-            input2.value.trim() = ``
-        }
-        
-        return;
-
-    }
-    input1.classList.remove('input1jspro1');
-    input2.classList.remove('input1jspro1');
-    input1.classList.add('input1jspro12')
-    input2.classList.add('input1jspro12')
-    document.querySelector('#span1js').innerHTML = ``;
-    document.querySelector('#span1js').classList.remove('span1');
-    document.querySelector('#span2js').innerHTML = ``;
-    document.querySelector('#span2js').classList.remove('span1');
-    
-
-
-        
     let resetR = document.querySelector('#num');
     let resetR2 = document.querySelector('#num2')
-    let calc1 = (Number(input1.value) * selectr) / Number(input2.value);
-    let calc2 = (Number(input1.value) + calc1) / Number(input2.value);
-    if(isNaN(calc1) || isNaN(calc2)) {
-        alert('Something wrong')
-        calc1 = 0;
-        calc2 = 0;
-    };
+    let calc1 = 0;
+    let calc2 = 0;
     resetR.innerHTML = `$${calc1.toFixed(2)}`;
     resetR2.innerHTML = `$${calc2.toFixed(2)}`;
 
-    if(resetR.innerHTML.length > 8) {
-        resetR.classList.add('newnum1')
-    }
-    if(resetR2.innerHTML.length > 8) {
-        resetR2.classList.add('newnum1')
-    }
+    input1.value = ``;
+    input2.value = ``;
+    
+
+
+
+    if(lastClicked) {
+    lastClicked.classList.remove('active');
+    let xb = document.querySelector('#xb-js');
+    xb.classList.remove('xb');
+    xb.innerHTML = ``;
+};
+
+
+}
 
     showRes();
+    totalResult();
 
 });
