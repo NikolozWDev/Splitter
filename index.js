@@ -1,6 +1,11 @@
 import { tips } from "./data/selecttips.js";
 
 
+// main function
+export function index() {
+
+
+
 // *** use % data
 let i1 = 0;
 let htmlg = ``;
@@ -201,6 +206,7 @@ reset.addEventListener('click', () => {
     let xb = document.querySelector('#xb-js');
     xb.classList.remove('xb');
     xb.innerHTML = ``;
+    selectr = 0;
 };
 
 
@@ -210,3 +216,9 @@ reset.addEventListener('click', () => {
     totalResult();
 
 });
+
+
+
+
+
+};
