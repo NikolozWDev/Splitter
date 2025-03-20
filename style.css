@@ -202,6 +202,7 @@ input:focus {
     background-color: rgba(225, 112, 82, 1);
     border: none;
     cursor: pointer;
+    transition: all 0.2s;
 }
 .xb:hover {
     opacity: 0.8;
@@ -215,6 +216,7 @@ input:focus {
     background-color: rgb(218, 222, 223);
     font-size: 18px;
     font-weight: bold;
+    transition: all 0.2s;
 }
 .span1 {
     color: rgba(225, 112, 82, 1);
@@ -225,9 +227,11 @@ input:focus {
 }
 .input1jspro12{
     border: 2px solid green;
+    transition: all 0.2s;
 }
 .input1jspro12:focus {
     border: 2px solid green;
+    transition: all 0.2s;
 }
 .newinput {
     border: none;
@@ -237,6 +241,7 @@ input:focus {
 }
 .inputhelp:focus {
     border: 2px solid green;
+    transition: all 0.2s;
 }
 
 
@@ -317,6 +322,44 @@ input:focus {
 }
 .summon1:hover {
     color: rgb(134, 60, 60);
+}
+
+
+.main-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.slider-div2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.image1 {
+    width: 400px;
+    height: 200px;
+}
+.main-bubbles {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.for1 {
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    opacity: 0.4;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.bubblepro {
+    opacity: 1;
 }
 
 
