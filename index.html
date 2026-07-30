@@ -1,112 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="icon" href="images/communityIcon_dtb7exwgsq7c1.png">
-    <link rel="stylesheet" href="style.css">
-    <script src="main.js" type="module" defer></script>
-    <script src="slider.js" defer></script>
-    <title>Splitter</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="icon" href="images/communityIcon_dtb7exwgsq7c1.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Splitter • Tip Calculator</title>
 </head>
 <body>
+  <div class="header-div">
+    <button class="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="header-son"></div>
+  </div>
 
-
-    <div class="main-slider">
-
-        <div class="slider-div1">
-            <img class="image1" src="assets/download (1).jfif">
-        </div>
-
-        <div class="main-bubbles">
-            <div class="bubble1 for1"></div>
-            <div class="bubble2 for1"></div>
-            <div class="bubble3 for1"></div>
-        </div>
-        
-        <div class="slider-div2">
-            <button id="backslide">back</button>
-            <button id="nextslide">next</button>
-        </div>
-
+  <main class="main-div">
+    <div class="title-name">
+      <span>SPLITTER</span>
     </div>
 
-
-
-
-    <div class="header-div">
-        <svg onclick="
-        document.querySelector('.header-son').classList.toggle('active');
-            " style="width: 30px; height: 30px; cursor: pointer;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-          
-        <div class="header-son">
-            <!-- here need JS -->
-        </div>
-    </div>
-
-
-
-    <div class="main-div">
-    
-
-
-        <div class="title-name" style="font-weight: 500;">
-        <p style="letter-spacing: 8px;">SPLI</p>
-        <p style="letter-spacing: 8px;">TTER</p>
-    </div>
-
-
-
-
-
-        <div class="primary-div">
-
-            <div class="primary-div-left">
-                <div class="left-div1">
-                    <p class="left-name">Bill</p><span id="span1js"></span>
-                    <input id="inputjs1" class="input1" type="number" placeholder="0">
-                    <p class="img1 for4" style="font-size: 18px; color: rgb(136, 136, 136);">$</p>
-                </div>
-                <div class="left-div1 for3">
-                    <p class="left-name">Select Tip % <button id="xb-js"></button></p>
-                    <div id="checkid" class="checks-div"><!-- here need js --></div>
-                </div>
-                <div class="left-div1">
-                    <p class="left-name">Number of People</p><span id="span2js"></span>
-                    <input id="inputjs2" class="input1" type="number" placeholder="0">
-                    <img class="img1 for1" src="images/Screenshot 2025-03-08 232818.png">
-                </div>
-            </div>
-
-
-
-            <div class="primary-div-right">
-                <div class="right-div1">
-                    <div class="right-div1-div1">
-                        <p class="right-name1">Tip Amount</p>
-                        <p class="right-name2">/ person</p>
-                    </div>
-                    <p id="num" class="number numberfor1">$0.00</p>
-                </div>
-                <div class="right-div1">
-                    <div class="right-div1-div1">
-                        <p class="right-name1">Total</p>
-                        <p class="right-name2">/ person</p>
-                    </div>
-                    <p id="num2" class="number numberfor2">$0.00</p>
-                </div>
-                <button id="buttonjs" class="button1">RESET</button>
-            </div>
-
+    <div class="primary-div">
+      <div class="primary-div-left">
+        <div class="left-div1">
+          <label class="left-name" for="inputjs1">Bill</label>
+          <span id="span1js" class="error-msg"></span>
+          <div class="input-wrapper">
+            <span class="currency-sign">$</span>
+            <input id="inputjs1" class="input1" type="number" placeholder="0.00" min="0" step="0.01">
+          </div>
         </div>
 
-        
+        <div class="left-div1 for3">
+          <div class="tip-header">
+            <span class="left-name">Select Tip %</span>
+            <button id="xb-js" class="xb" aria-label="Clear custom tip">✕</button>
+          </div>
+          <div id="checkid" class="checks-div"></div>
+        </div>
 
+        <div class="left-div1">
+          <label class="left-name" for="inputjs2">Number of People</label>
+          <span id="span2js" class="error-msg"></span>
+          <div class="input-wrapper">
+            <input id="inputjs2" class="input1" type="number" placeholder="0" min="1" step="1">
+            <img class="img1 for1" src="images/Screenshot 2025-03-08 232818.png" alt="people icon">
+          </div>
+        </div>
+      </div>
 
-    
+      <div class="primary-div-right">
+        <div class="right-div1">
+          <div>
+            <p class="right-name1">Tip Amount</p>
+            <p class="right-name2">/ person</p>
+          </div>
+          <p id="num" class="number numberfor1">$0.00</p>
+        </div>
+        <div class="right-div1">
+          <div>
+            <p class="right-name1">Total</p>
+            <p class="right-name2">/ person</p>
+          </div>
+          <p id="num2" class="number numberfor2">$0.00</p>
+        </div>
+        <button id="buttonjs" class="button1">RESET</button>
+      </div>
     </div>
-    
+  </main>
+
+  <script src="main.js"></script>
 </body>
 </html>

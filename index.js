@@ -1,224 +1,176 @@
 import { tips } from "./data/selecttips.js";
 
-
-// main function
 export function index() {
+  // Build tip buttons from data
+  const checkDiv = document.querySelector('#checkid');
+  if (!checkDiv) return;
+  
+  let htmlg = '';
+  tips.forEach(tip => {
+    htmlg += `<button class="buttons1" data-tipid="${tip.tip}">${tip.tip}%</button>`;
+  });
+  checkDiv.innerHTML = htmlg + '<input type="number" class="inputpro1" placeholder="Custom" min="0" max="100">';
 
+  // DOM elements
+  const resetBtn = document.querySelector('#buttonjs');
+  const billInput = document.querySelector('#inputjs1');
+  const peopleInput = document.querySelector('#inputjs2');
+  const customInput = document.querySelector('.inputpro1');
+  const clearTipBtn = document.querySelector('#xb-js');
+  const tipAmountDisplay = document.querySelector('#num');
+  const totalDisplay = document.querySelector('#num2');
+  const billError = document.querySelector('#span1js');
+  const peopleError = document.querySelector('#span2js');
 
+  // Check if all elements exist
+  if (!resetBtn || !billInput || !peopleInput || !customInput || !clearTipBtn || 
+      !tipAmountDisplay || !totalDisplay || !billError || !peopleError) {
+    console.error('Some DOM elements are missing');
+    return;
+  }
 
-// *** use % data
-let i1 = 0;
-let htmlg = ``;
-while(i1 < tips.length) {
+  let selectedTipPercent = 0;
+  let lastClickedButton = null;
 
-    htmlg += `
-    <button class="buttons1" data-tipid="${tips[i1].tip}">${tips[i1].tip}%</button>
-    `
-    
-    i1++;
-};
-document.querySelector('#checkid').innerHTML = htmlg + `<input type="number" class="inputpro1" placeholder="Custom"></input>`;
+  // Utility: validate inputs and return parsed values
+  function getValidInputs() {
+    const bill = parseFloat(billInput.value);
+    const people = parseInt(peopleInput.value, 10);
+    return {
+      bill: isNaN(bill) || bill < 0 ? null : bill,
+      people: isNaN(people) || people < 1 ? null : people
+    };
+  }
 
-
-
-// *** add variables
-const reset = document.querySelector('#buttonjs');
-const input1 = document.querySelector('#inputjs1');
-const input2 = document.querySelector('#inputjs2');
-const element = document.querySelectorAll('.buttons1');
-let lastClicked = null;
-let i2 = 0;
-let selectr = 0;
-
-
-
-// *** show rest button when inputs are empty
-reset.classList.add('buttonnone');
-function showRes() {
-    if (input1.value.trim() === '' || input2.value.trim() === '') {
-        reset.classList.add('buttonnone');
+  // Show field errors
+  function setFieldError(input, errorSpan, message) {
+    if (message) {
+      input.classList.add('input-error');
+      input.classList.remove('input-valid');
+      errorSpan.textContent = message;
     } else {
-        reset.classList.remove('buttonnone');
+      input.classList.remove('input-error');
+      input.classList.add('input-valid');
+      errorSpan.textContent = '';
     }
-    totalResult();
-}
-input1.addEventListener('input', showRes);
-input2.addEventListener('input', showRes);
+  }
 
+  // Main calculation and display update
+  function updateTotals() {
+    const { bill, people } = getValidInputs();
 
-
-
-// *** manipulate and add % clicking
-while(i2 < element.length) {
-    let elements = element[i2]
-    
-
-        elements.addEventListener('click', () => {
-
-            let select = Number(elements.dataset.tipid);
-            if(lastClicked) {
-                lastClicked.classList.remove('active');
-            };
-            elements.classList.add('active');
-            lastClicked = elements
-            let xb = document.querySelector('#xb-js');
-            xb.classList.add('xb');
-            xb.innerHTML = `X`;
-            customInput.value = ``;
-            xb.addEventListener('click', () => {
-                selectr = 0;
-                lastClicked.classList.remove('active');
-                xb.classList.remove('xb');
-                xb.innerHTML = ``;
-                showRes();
-            });
-                selectr = select / 100;
-            
-            showRes();
-            totalResult()
-
-        
-        })
-
-    i2++;
-
-};
-
-
-
-// *** custom input with %
-const customInput = document.querySelector('.inputpro1');
-customInput.addEventListener('input', () => {
-    let customValue = Number(customInput.value);
-    if(customValue) {
-        selectr = customValue / 100
-        if(customValue <= 0 || customValue > 100) {
-            alert('! (1% --- 100%) !');
-            customInput.value = ``;
-        };
-     if(lastClicked) {
-        lastClicked.classList.remove('active');
-        let xb = document.querySelector('#xb-js');
-        xb.classList.remove('xb');
-        xb.innerHTML = ``;
+    // Handle bill validation
+    if (billInput.value.trim() === '' || bill === null || bill <= 0) {
+      setFieldError(billInput, billError, "Can't be zero");
+    } else {
+      setFieldError(billInput, billError, '');
     }
-    showRes();
-    totalResult()
-} else {
-    if(lastClicked) {
-        selectr = 0;
+
+    // Handle people validation
+    if (peopleInput.value.trim() === '' || people === null || people < 1) {
+      setFieldError(peopleInput, peopleError, "Can't be zero");
+    } else {
+      setFieldError(peopleInput, peopleError, '');
     }
-    showRes();
-    totalResult()
-};
-});
 
+    // Reset button state
+    const hasValidData = bill !== null && bill > 0 && people !== null && people > 0;
+    resetBtn.disabled = !hasValidData;
 
+    // Perform calculation if all valid and tip selected
+    if (bill !== null && bill > 0 && people !== null && people > 0 && selectedTipPercent > 0) {
+      const tipAmountPerPerson = (bill * (selectedTipPercent / 100)) / people;
+      const totalPerPerson = (bill / people) + tipAmountPerPerson;
 
-// function to calculate and display the total result after input validation
-function totalResult() {
+      if (isFinite(tipAmountPerPerson) && isFinite(totalPerPerson)) {
+        tipAmountDisplay.textContent = `$${tipAmountPerPerson.toFixed(2)}`;
+        totalDisplay.textContent = `$${totalPerPerson.toFixed(2)}`;
+      }
+    } else {
+      tipAmountDisplay.textContent = '$0.00';
+      totalDisplay.textContent = '$0.00';
+    }
 
-        // this code shows value if input is empty
-        if(input1.value.trim() === '' || input2.value.trim() === '') {
+    // Show/hide clear tip button
+    if (selectedTipPercent > 0) {
+      clearTipBtn.classList.add('show');
+    } else {
+      clearTipBtn.classList.remove('show');
+    }
+  }
 
-            if (input1.value.trim() === '' || input1.value.trim() < 0) {
-                input1.classList.remove('input1jspro12');
-                input1.classList.add('input1jspro1');
-                document.querySelector('#span1js').innerHTML = `Can't be zero`;
-                document.querySelector('#span1js').classList.add('span1');
-            } else {
-                input1.classList.add('input1jspro12');
-                input1.classList.remove('input1jspro1')
-                document.querySelector('#span1js').innerHTML = ``;
-                document.querySelector('#span1js').classList.remove('span1');
-            }
+  // Reset tip selection UI
+  function clearTipSelection() {
+    if (lastClickedButton) {
+      lastClickedButton.classList.remove('active');
+      lastClickedButton = null;
+    }
+    selectedTipPercent = 0;
+    customInput.value = '';
+    clearTipBtn.classList.remove('show');
+  }
+
+  // Event: Tip percentage buttons (use event delegation)
+  checkDiv.addEventListener('click', (e) => {
+    const btn = e.target.closest('.buttons1');
+    if (!btn) return;
     
-            if (input2.value.trim() === '' || input2.value.trim() < 0) {
-                input2.classList.remove('input1jspro12');
-                input2.classList.add('input1jspro1');
-                document.querySelector('#span2js').innerHTML = `Can't be zero`;
-                document.querySelector('#span2js').classList.add('span1');
-            } else {
-                input2.classList.add('input1jspro12');
-                input2.classList.remove('input1jspro1');
-                document.querySelector('#span2js').innerHTML = ``;
-                document.querySelector('#span2js').classList.remove('span1');
-            }
-    
-            if (Number(input1.value.trim()) < 0 || Number(input2.value.trim()) < 0) {
-                alert('! not < 1 !');
-                input1.value = ``
-                input2.value = ``
-            }
-            
-            return;
-    
-        }
-        input1.classList.remove('input1jspro1');
-        input2.classList.remove('input1jspro1');
-        input1.classList.add('input1jspro12')
-        input2.classList.add('input1jspro12')
-        document.querySelector('#span1js').innerHTML = ``;
-        document.querySelector('#span1js').classList.remove('span1');
-        document.querySelector('#span2js').innerHTML = ``;
-        document.querySelector('#span2js').classList.remove('span1');
-        
-    
-    
-            
-        let resetR = document.querySelector('#num');
-        let resetR2 = document.querySelector('#num2')
-        let calc1 = (Number(input1.value) * selectr) / Number(input2.value);
-        let calc2 = (Number(input1.value) + calc1) / Number(input2.value);
-        if(isNaN(calc1) || isNaN(calc2)) {
-            alert('Something wrong')
-            calc1 = 0;
-            calc2 = 0;
-        };
-        resetR.innerHTML = `$${calc1.toFixed(2)}`;
-        resetR2.innerHTML = `$${calc2.toFixed(2)}`;
+    const tipValue = parseInt(btn.dataset.tipid, 10);
+    if (lastClickedButton) {
+      lastClickedButton.classList.remove('active');
+    }
+    btn.classList.add('active');
+    lastClickedButton = btn;
+    selectedTipPercent = tipValue;
+    customInput.value = '';
+    updateTotals();
+  });
 
+  // Event: Custom tip input
+  customInput.addEventListener('input', () => {
+    let customValue = parseFloat(customInput.value);
+    if (!isNaN(customValue) && customValue >= 1 && customValue <= 100) {
+      if (lastClickedButton) {
+        lastClickedButton.classList.remove('active');
+        lastClickedButton = null;
+      }
+      selectedTipPercent = customValue;
+    } else if (customInput.value.trim() !== '') {
+      // Invalid custom value
+      alert('Please enter a tip between 1% and 100%');
+      customInput.value = '';
+      selectedTipPercent = 0;
+    } else {
+      // Empty custom input
+      if (!lastClickedButton) {
+        selectedTipPercent = 0;
+      }
+    }
+    updateTotals();
+  });
+
+  // Event: Clear tip button (X)
+  clearTipBtn.addEventListener('click', () => {
+    clearTipSelection();
+    updateTotals();
+  });
+
+  // Event: Input fields change
+  billInput.addEventListener('input', updateTotals);
+  peopleInput.addEventListener('input', updateTotals);
+
+  // Event: Reset button
+  resetBtn.addEventListener('click', () => {
+    billInput.value = '';
+    peopleInput.value = '';
+    clearTipSelection();
+    setFieldError(billInput, billError, '');
+    setFieldError(peopleInput, peopleError, '');
+    tipAmountDisplay.textContent = '$0.00';
+    totalDisplay.textContent = '$0.00';
+    resetBtn.disabled = true;
+  });
+
+  // Initial state
+  updateTotals();
 }
-
-
-
-
-// *** clicking rest button (reset!)
-reset.addEventListener('click', () => {
-
-    if(!(input1.value.trim() === '' || input2.value.trim() === '')) {
-
-    let resetR = document.querySelector('#num');
-    let resetR2 = document.querySelector('#num2')
-    let calc1 = 0;
-    let calc2 = 0;
-    resetR.innerHTML = `$${calc1.toFixed(2)}`;
-    resetR2.innerHTML = `$${calc2.toFixed(2)}`;
-
-    input1.value = ``;
-    input2.value = ``;
-    
-
-
-
-    if(lastClicked) {
-    lastClicked.classList.remove('active');
-    let xb = document.querySelector('#xb-js');
-    xb.classList.remove('xb');
-    xb.innerHTML = ``;
-    selectr = 0;
-};
-
-
-}
-
-    showRes();
-    totalResult();
-
-});
-
-
-
-
-
-};
