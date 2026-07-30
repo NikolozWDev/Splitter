@@ -16,10 +16,6 @@ The project includes custom styling, dynamic content handling, and responsive la
 - CSS3
 - JavaScript
 
-## Live Demo
-
-https://nikolozwdev.github.io/Splitter/
-
 ## About The Project
 
 Splitter was created as a frontend project to practice building interactive web interfaces using core web technologies.
